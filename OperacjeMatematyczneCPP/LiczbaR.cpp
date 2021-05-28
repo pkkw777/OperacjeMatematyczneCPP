@@ -21,7 +21,7 @@ LiczbaR::~LiczbaR()
 	tab.clear();
 }
 
-void LiczbaR::wyswietl_rownanie()
+void LiczbaR::WyswietlRownanie()
 {
 	if (tab[0] == 0)
 	{
@@ -47,11 +47,11 @@ void LiczbaR::wyswietl_rownanie()
 	}
 }
 
-void LiczbaR::oblicz_pierwiastek_rownania()
+void LiczbaR::ObliczPierwiastekRownania()
 {
 	double a = 0, b = 0, ai = 0, bi = 0;
 	double temp = tab[0];
-	delta = oblicz_delte(tab);
+	delta = ObliczDelte(tab);
 
 	if (err == 0)
 	{
@@ -63,7 +63,7 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 			tab2.push_back(a);
 			tab2.push_back(tab[0]);
 			tab2.push_back(b);
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
 				x1r = (tab[0] + sqrt(deltaN)) / (2 * a);
@@ -90,7 +90,7 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 				tab2.push_back(b);
 				tab2.push_back(tab[2]);
 
-				double deltaN = oblicz_delte(tab2);
+				double deltaN = ObliczDelte(tab2);
 				ai = (-b + sqrt(deltaN)) / (2 * a);
 				if (ai < 0)
 					ai *= -1;
@@ -159,7 +159,7 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 		if (delta == 0)
 			pdelta = 0;
 		else
-			pdelta = sqrt_Newton(delta, err);
+			pdelta = SqrtNewton(delta, err);
 
 		if (tab[0] == 0 && tab[1] != 0 && tab[2] != 0)
 		{
@@ -173,11 +173,11 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 			tab2.push_back(b);
 
 
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
-				x1r = (tab[0] + sqrt_Newton(deltaN, err)) / (2 * a);
-				x2r = (tab[0] - sqrt_Newton(deltaN, err)) / (2 * a);
+				x1r = (tab[0] + SqrtNewton(deltaN, err)) / (2 * a);
+				x2r = (tab[0] - SqrtNewton(deltaN, err)) / (2 * a);
 			}
 			else
 			{
@@ -192,8 +192,8 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 			a = t1 / t2;
 			b = -a;
 			a = b;
-			x1r = sqrt_Newton(sqrt_Newton(b, err), err);
-			x2r = -sqrt_Newton(sqrt_Newton(b, err), err);
+			x1r = SqrtNewton(SqrtNewton(b, err), err);
+			x2r = -SqrtNewton(SqrtNewton(b, err), err);
 		}
 		else if (tab[2] == 0)
 		{
@@ -209,17 +209,17 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 				tab2.push_back(tab[2]);
 
 
-				double deltaN = oblicz_delte(tab2);
-				ai = (-b + sqrt_Newton(deltaN, err)) / (2 * a);
+				double deltaN = ObliczDelte(tab2);
+				ai = (-b + SqrtNewton(deltaN, err)) / (2 * a);
 				if (ai < 0)
 					ai *= -1;
-				x1r = sqrt_Newton(ai, err);
-				x2r = -sqrt_Newton(ai, err);
-				x3r = (-b - sqrt_Newton(deltaN, err)) / (2 * a);
+				x1r = SqrtNewton(ai, err);
+				x2r = -SqrtNewton(ai, err);
+				x3r = (-b - SqrtNewton(deltaN, err)) / (2 * a);
 			}
 			else
 			{
-				pdelta = sqrt_Newton(delta, err);
+				pdelta = SqrtNewton(delta, err);
 				a = (-tab[1] + pdelta) / (2 * temp);
 				b = (-tab[1] - pdelta) / (2 * temp);
 				x1r = a;
@@ -245,27 +245,27 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 					b = -a;
 				else
 					b = a;
-				x1r = sqrt_Newton(sqrt_Newton(b, err), err);
-				x2r = -sqrt_Newton(sqrt_Newton(b, err), err);
+				x1r = SqrtNewton(SqrtNewton(b, err), err);
+				x2r = -SqrtNewton(SqrtNewton(b, err), err);
 			}
 			else
 			{
 				if ((tab[0] < 0 && tab[1] > 0 && tab[2] > 0) || (tab[0] < 0 && tab[1] < 0 && tab[2] > 0))
 				{
-					x1r = (sqrt_Newton((tab[1] + pdelta), err)) / (temp);
-					x2r = -(sqrt_Newton((tab[1] + pdelta), err)) / (temp);
+					x1r = (SqrtNewton((tab[1] + pdelta), err)) / (temp);
+					x2r = -(SqrtNewton((tab[1] + pdelta), err)) / (temp);
 				}
 				else if ((tab[0] > 0 && tab[1] < 0 && tab[2] < 0) || (tab[0] > 0 && tab[1] > 0 && tab[2] < 0))
 				{
-					x1r = (sqrt_Newton((-tab[1] + pdelta), err)) / (temp);
-					x2r = -(sqrt_Newton((-tab[1] + pdelta), err)) / (temp);
+					x1r = (SqrtNewton((-tab[1] + pdelta), err)) / (temp);
+					x2r = -(SqrtNewton((-tab[1] + pdelta), err)) / (temp);
 				}
 				else
 				{
-					x1r = sqrt_Newton(((sqrt_Newton((a*a + ai * ai), err) + a) / 2), err);
-					x2r = -sqrt_Newton(((sqrt_Newton((a*a + ai * ai), err) + a) / 2), err);
-					x3r = sqrt_Newton(((sqrt_Newton((b*b + bi * bi), err) + b) / 2), err);
-					x4r = -sqrt_Newton(((sqrt_Newton((b*b + bi * bi), err) + b) / 2), err);
+					x1r = SqrtNewton(((SqrtNewton((a*a + ai * ai), err) + a) / 2), err);
+					x2r = -SqrtNewton(((SqrtNewton((a*a + ai * ai), err) + a) / 2), err);
+					x3r = SqrtNewton(((SqrtNewton((b*b + bi * bi), err) + b) / 2), err);
+					x4r = -SqrtNewton(((SqrtNewton((b*b + bi * bi), err) + b) / 2), err);
 				}
 			}
 		}
@@ -275,7 +275,7 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 		if (delta == 0)
 			pdelta = 0;
 		else
-			pdelta = sqrt_Heron(delta, err);
+			pdelta = SqrtHeron(delta, err);
 
 		if (tab[0] == 0 && tab[1] != 0 && tab[2] != 0)
 		{
@@ -288,11 +288,11 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 			tab2.push_back(b);
 
 
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
-				x1r = (tab[0] + sqrt_Heron(deltaN, err)) / (2 * a);
-				x2r = (tab[0] - sqrt_Heron(deltaN, err)) / (2 * a);
+				x1r = (tab[0] + SqrtHeron(deltaN, err)) / (2 * a);
+				x2r = (tab[0] - SqrtHeron(deltaN, err)) / (2 * a);
 			}
 			else
 			{
@@ -306,8 +306,8 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 			a = t1 / t2;
 			b = -a;
 			a = b;
-			x1r = sqrt_Heron(sqrt_Heron(b, err), err);
-			x2r = -sqrt_Heron(sqrt_Heron(b, err), err);
+			x1r = SqrtHeron(SqrtHeron(b, err), err);
+			x2r = -SqrtHeron(SqrtHeron(b, err), err);
 		}
 		else if (tab[2] == 0)
 		{
@@ -322,17 +322,17 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 				tab2.push_back(b);
 				tab2.push_back(tab[2]);
 
-				double deltaN = oblicz_delte(tab2);
-				ai = (-b + sqrt_Heron(deltaN, err)) / (2 * a);
+				double deltaN = ObliczDelte(tab2);
+				ai = (-b + SqrtHeron(deltaN, err)) / (2 * a);
 				if (ai < 0)
 					ai *= -1;
-				x1r = sqrt_Heron(ai, err);
-				x2r = -sqrt_Heron(ai, err);
-				x3r = (-b - sqrt_Heron(deltaN, err)) / (2 * a);
+				x1r = SqrtHeron(ai, err);
+				x2r = -SqrtHeron(ai, err);
+				x3r = (-b - SqrtHeron(deltaN, err)) / (2 * a);
 			}
 			else
 			{
-				pdelta = sqrt_Heron(delta, err);
+				pdelta = SqrtHeron(delta, err);
 				a = (-tab[1] + pdelta) / (2 * temp);
 				b = (-tab[1] - pdelta) / (2 * temp);
 				x1r = a;
@@ -358,44 +358,44 @@ void LiczbaR::oblicz_pierwiastek_rownania()
 					b = -a;
 				else
 					b = a;
-				x1r = sqrt_Heron(sqrt_Heron(b, err), err);
-				x2r = -sqrt_Heron(sqrt_Heron(b, err), err);
+				x1r = SqrtHeron(SqrtHeron(b, err), err);
+				x2r = -SqrtHeron(SqrtHeron(b, err), err);
 			}
 			else
 			{
 				if ((tab[0] < 0 && tab[1] > 0 && tab[2] > 0) || (tab[0] < 0 && tab[1] < 0 && tab[2] > 0))
 				{
-					x1r = (sqrt_Heron((tab[1] + pdelta), err)) / (temp);
-					x2r = -(sqrt_Heron((tab[1] + pdelta), err)) / (temp);
+					x1r = (SqrtHeron((tab[1] + pdelta), err)) / (temp);
+					x2r = -(SqrtHeron((tab[1] + pdelta), err)) / (temp);
 				}
 				else if ((tab[0] > 0 && tab[1] < 0 && tab[2] < 0) || (tab[0] > 0 && tab[1] > 0 && tab[2] < 0))
 				{
-					x1r = (sqrt_Heron((-tab[1] + pdelta), err)) / (temp);
-					x2r = -(sqrt_Heron((-tab[1] + pdelta), err)) / (temp);
+					x1r = (SqrtHeron((-tab[1] + pdelta), err)) / (temp);
+					x2r = -(SqrtHeron((-tab[1] + pdelta), err)) / (temp);
 				}
 				else
 				{
-					x1r = sqrt_Heron(((sqrt_Heron((a*a + ai * ai), err) + a) / 2), err);
-					x2r = -sqrt_Heron(((sqrt_Heron((a*a + ai * ai), err) + a) / 2), err);
-					x3r = sqrt_Heron(((sqrt_Heron((b*b + bi * bi), err) + b) / 2), err);
-					x4r = -sqrt_Heron(((sqrt_Heron((b*b + bi * bi), err) + b) / 2), err);
+					x1r = SqrtHeron(((SqrtHeron((a*a + ai * ai), err) + a) / 2), err);
+					x2r = -SqrtHeron(((SqrtHeron((a*a + ai * ai), err) + a) / 2), err);
+					x3r = SqrtHeron(((SqrtHeron((b*b + bi * bi), err) + b) / 2), err);
+					x4r = -SqrtHeron(((SqrtHeron((b*b + bi * bi), err) + b) / 2), err);
 				}
 			}
 		}
 	}
 }
 
-void LiczbaR::dodaj_liczby_zespolone()
+void LiczbaR::DodajLiczbyZespolone()
 {
 	sr = x1r + x2r + x3r + x4r;
 }
 
-void LiczbaR::odejmij_liczby_zespolone()
+void LiczbaR::OdejmijLiczbyZespolone()
 {
 	rr = x1r - x2r - x3r - x4r;
 }
 
-double LiczbaR::oblicz_delte(std::vector<int> tab)
+double LiczbaR::ObliczDelte(std::vector<int> tab)
 {
 	double delta;
 	if (tab[0] == 0 && tab[1] == 0)
@@ -410,7 +410,7 @@ double LiczbaR::oblicz_delte(std::vector<int> tab)
 	return delta;
 }
 
-double LiczbaR::sqrt_Newton(double d, double err)
+double LiczbaR::SqrtNewton(double d, double err)
 {
 	double a;
 	if (tab[0] == 0 && tab[1] == 0)
@@ -432,7 +432,7 @@ double LiczbaR::sqrt_Newton(double d, double err)
 	return a;
 }
 
-double LiczbaR::sqrt_Heron(double d, double err)
+double LiczbaR::SqrtHeron(double d, double err)
 {
 	double x0 = 1;
 	double x = x0;

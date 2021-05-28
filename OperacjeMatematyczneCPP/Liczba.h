@@ -4,8 +4,8 @@ class Liczba
 public:
 	Liczba();
 	virtual ~Liczba();
-	virtual void wyswietl_rownanie() = 0;
-	virtual void oblicz_pierwiastek_rownania() = 0;
-	virtual void dodaj_liczby_zespolone() = 0;
-	virtual void odejmij_liczby_zespolone() = 0;
+	virtual void WyswietlRownanie() = 0;
+	virtual void ObliczPierwiastekRownania() = 0;
+	virtual void DodajLiczbyZespolone() = 0;
+	virtual void OdejmijLiczbyZespolone() = 0;
 };

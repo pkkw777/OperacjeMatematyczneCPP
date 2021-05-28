@@ -17,15 +17,15 @@ int main()
 
 	Liczba* licz;
 	licz = &re;
-	licz->wyswietl_rownanie();
-	licz->oblicz_pierwiastek_rownania();
-	licz->dodaj_liczby_zespolone();
-	licz->odejmij_liczby_zespolone();
+	licz->WyswietlRownanie();
+	licz->ObliczPierwiastekRownania();
+	licz->DodajLiczbyZespolone();
+	licz->OdejmijLiczbyZespolone();
 
 	licz = &im;
-	licz->oblicz_pierwiastek_rownania();
-	licz->dodaj_liczby_zespolone();
-	licz->odejmij_liczby_zespolone();
+	licz->ObliczPierwiastekRownania();
+	licz->DodajLiczbyZespolone();
+	licz->OdejmijLiczbyZespolone();
 
 	float delta = re.getDelta();
 	float pdelta = re.getPdelta();

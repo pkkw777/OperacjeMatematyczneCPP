@@ -24,7 +24,7 @@ LiczbaZ::~LiczbaZ()
 
 }
 
-void LiczbaZ::wyswietl_rownanie()
+void LiczbaZ::WyswietlRownanie()
 {
 	if (tab[0] == 0)
 	{
@@ -50,11 +50,11 @@ void LiczbaZ::wyswietl_rownanie()
 	}
 }
 
-void LiczbaZ::oblicz_pierwiastek_rownania()
+void LiczbaZ::ObliczPierwiastekRownania()
 {
 	double a = 0, b = 0, ai = 0, bi = 0;
 	double temp = tab[0];
-	delta = oblicz_delte(tab);
+	delta = ObliczDelte(tab);
 
 	if (err == 0)
 	{
@@ -69,7 +69,7 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 			tab2.push_back(tab[0]);
 			tab2.push_back(b);
 
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
 			}
@@ -92,7 +92,7 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 				tab2.push_back(b);
 				tab2.push_back(tab[2]);
 
-				double deltaN = oblicz_delte(tab2);
+				double deltaN = ObliczDelte(tab2);
 
 				ai = (-b + sqrt(deltaN)) / (2 * a);
 				if (ai < 0)
@@ -156,7 +156,7 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 		if (delta == 0)
 			pdelta = 0;
 		else
-			pdelta = sqrt_Newton(delta, err);
+			pdelta = SqrtNewton(delta, err);
 
 		if (tab[0] == 0 && tab[1] != 0 && tab[2] != 0)
 		{
@@ -169,14 +169,14 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 			tab2.push_back(tab[0]);
 			tab2.push_back(b);
 
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
 			}
 			else
 			{
-				x1u = (tab[0] + sqrt_Newton(deltaN, err)) / (2 * a);
-				x2u = (tab[0] - sqrt_Newton(deltaN, err)) / (2 * a);
+				x1u = (tab[0] + SqrtNewton(deltaN, err)) / (2 * a);
+				x2u = (tab[0] - SqrtNewton(deltaN, err)) / (2 * a);
 			}
 		}
 		else if (tab[2] == 0)
@@ -195,20 +195,20 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 				tab2.push_back(b);
 				tab2.push_back(tab[2]);
 
-				double deltaN = oblicz_delte(tab2);
-				ai = (-b + sqrt_Newton(deltaN, err)) / (2 * a);
+				double deltaN = ObliczDelte(tab2);
+				ai = (-b + SqrtNewton(deltaN, err)) / (2 * a);
 				if (ai < 0)
 					ai *= -1;
 			}
 			else
 			{
-				pdelta = sqrt_Newton(delta, err);
+				pdelta = SqrtNewton(delta, err);
 				a = (-tab[1] + pdelta) / (2 * temp);
 				b = (-tab[1] - pdelta) / (2 * temp);
 				if (b < 0)
 					b *= -1;
-				x1u = sqrt_Newton(b, err);
-				x2u = -sqrt_Newton(b, err);
+				x1u = SqrtNewton(b, err);
+				x2u = -SqrtNewton(b, err);
 			}
 		}
 		else
@@ -228,27 +228,27 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 					b = -a;
 				else
 					b = a;
-				x1u = sqrt_Newton(sqrt_Newton(b, err), err);
-				x2u = -sqrt_Newton(sqrt_Newton(b, err), err);
+				x1u = SqrtNewton(SqrtNewton(b, err), err);
+				x2u = -SqrtNewton(SqrtNewton(b, err), err);
 			}
 			else
 			{
 				if ((tab[0] < 0 && tab[1] > 0 && tab[2] > 0) || (tab[0] < 0 && tab[1] < 0 && tab[2] > 0))
 				{
-					x1u = (sqrt_Newton((-tab[1] + pdelta), err)) / (temp);
-					x2u = -(sqrt_Newton((-tab[1] + pdelta), err)) / (temp);
+					x1u = (SqrtNewton((-tab[1] + pdelta), err)) / (temp);
+					x2u = -(SqrtNewton((-tab[1] + pdelta), err)) / (temp);
 				}
 				else if ((tab[0] > 0 && tab[1] < 0 && tab[2] < 0) || (tab[0] > 0 && tab[1] > 0 && tab[2] < 0))
 				{
-					x1u = (sqrt_Newton((tab[1] + pdelta), err)) / (temp);
-					x2u = -(sqrt_Newton((tab[1] + pdelta), err)) / (temp);
+					x1u = (SqrtNewton((tab[1] + pdelta), err)) / (temp);
+					x2u = -(SqrtNewton((tab[1] + pdelta), err)) / (temp);
 				}
 				else
 				{
-					x1u = sqrt_Newton(((sqrt_Newton((a*a + ai * ai), err) - a) / 2), err);
-					x2u = sqrt_Newton(((sqrt_Newton((a*a + ai * ai), err) - a) / 2), err);
-					x3u = -sqrt_Newton(((sqrt_Newton((b*b + bi * bi), err) - b) / 2), err);
-					x4u = -sqrt_Newton(((sqrt_Newton((b*b + bi * bi), err) - b) / 2), err);
+					x1u = SqrtNewton(((SqrtNewton((a*a + ai * ai), err) - a) / 2), err);
+					x2u = SqrtNewton(((SqrtNewton((a*a + ai * ai), err) - a) / 2), err);
+					x3u = -SqrtNewton(((SqrtNewton((b*b + bi * bi), err) - b) / 2), err);
+					x4u = -SqrtNewton(((SqrtNewton((b*b + bi * bi), err) - b) / 2), err);
 				}
 			}
 		}
@@ -258,7 +258,7 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 		if (delta == 0)
 			pdelta = 0;
 		else
-			pdelta = sqrt_Heron(delta, err);
+			pdelta = SqrtHeron(delta, err);
 
 		if (tab[0] == 0 && tab[1] != 0 && tab[2] != 0)
 		{
@@ -271,15 +271,15 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 			tab2.push_back(tab[0]);
 			tab2.push_back(b);
 
-			double deltaN = oblicz_delte(tab2);
+			double deltaN = ObliczDelte(tab2);
 			if ((tab[1] > 0 && tab[2] < 0) || (tab[1] < 0 && tab[2] > 0))
 			{
 
 			}
 			else
 			{
-				x1u = (tab[0] + sqrt_Heron(deltaN, err)) / (2 * a);
-				x2u = (tab[0] - sqrt_Heron(deltaN, err)) / (2 * a);
+				x1u = (tab[0] + SqrtHeron(deltaN, err)) / (2 * a);
+				x2u = (tab[0] - SqrtHeron(deltaN, err)) / (2 * a);
 			}
 		}
 		else if (tab[2] == 0)
@@ -295,20 +295,20 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 				tab2.push_back(b);
 				tab2.push_back(tab[2]);
 
-				double deltaN = oblicz_delte(tab2);
-				ai = (-b + sqrt_Heron(deltaN, err)) / (2 * a);
+				double deltaN = ObliczDelte(tab2);
+				ai = (-b + SqrtHeron(deltaN, err)) / (2 * a);
 				if (ai < 0)
 					ai *= -1;
 			}
 			else
 			{
-				pdelta = sqrt_Heron(delta, err);
+				pdelta = SqrtHeron(delta, err);
 				a = (-tab[1] + pdelta) / (2 * temp);
 				b = (-tab[1] - pdelta) / (2 * temp);
 				if (b < 0)
 					b *= -1;
-				x1u = sqrt_Heron(b, err);
-				x2u = -sqrt_Heron(b, err);
+				x1u = SqrtHeron(b, err);
+				x2u = -SqrtHeron(b, err);
 			}
 		}
 		else
@@ -328,44 +328,44 @@ void LiczbaZ::oblicz_pierwiastek_rownania()
 					b = -a;
 				else
 					b = a;
-				x1u = sqrt_Heron(sqrt_Heron(b, err), err);
-				x2u = -sqrt_Heron(sqrt_Heron(b, err), err);
+				x1u = SqrtHeron(SqrtHeron(b, err), err);
+				x2u = -SqrtHeron(SqrtHeron(b, err), err);
 			}
 			else
 			{
 				if ((tab[0] < 0 && tab[1] > 0 && tab[2] > 0) || (tab[0] < 0 && tab[1] < 0 && tab[2] > 0))
 				{
-					x1u = (sqrt_Heron((-tab[1] + pdelta), err)) / (temp);
-					x2u = -(sqrt_Heron((-tab[1] + pdelta), err)) / (temp);
+					x1u = (SqrtHeron((-tab[1] + pdelta), err)) / (temp);
+					x2u = -(SqrtHeron((-tab[1] + pdelta), err)) / (temp);
 				}
 				else if ((tab[0] > 0 && tab[1] < 0 && tab[2] < 0) || (tab[0] > 0 && tab[1] > 0 && tab[2] < 0))
 				{
-					x1u = (sqrt_Heron((tab[1] + pdelta), err)) / (temp);
-					x2u = -(sqrt_Heron((tab[1] + pdelta), err)) / (temp);
+					x1u = (SqrtHeron((tab[1] + pdelta), err)) / (temp);
+					x2u = -(SqrtHeron((tab[1] + pdelta), err)) / (temp);
 				}
 				else
 				{
-					x1u = sqrt_Heron(((sqrt_Heron((a*a + ai * ai), err) - a) / 2), err);
-					x2u = sqrt_Heron(((sqrt_Heron((a*a + ai * ai), err) - a) / 2), err);
-					x3u = -sqrt_Heron(((sqrt_Heron((b*b + bi * bi), err) - b) / 2), err);
-					x4u = -sqrt_Heron(((sqrt_Heron((b*b + bi * bi), err) - b) / 2), err);
+					x1u = SqrtHeron(((SqrtHeron((a*a + ai * ai), err) - a) / 2), err);
+					x2u = SqrtHeron(((SqrtHeron((a*a + ai * ai), err) - a) / 2), err);
+					x3u = -SqrtHeron(((SqrtHeron((b*b + bi * bi), err) - b) / 2), err);
+					x4u = -SqrtHeron(((SqrtHeron((b*b + bi * bi), err) - b) / 2), err);
 				}
 			}
 		}
 	}
 }
 
-void LiczbaZ::dodaj_liczby_zespolone()
+void LiczbaZ::DodajLiczbyZespolone()
 {
 	su = x1u + x2u + x3u + x4u;
 }
 
-void LiczbaZ::odejmij_liczby_zespolone()
+void LiczbaZ::OdejmijLiczbyZespolone()
 {
 	ru = x1u - x2u - x3u - x4u;
 }
 
-double LiczbaZ::oblicz_delte(std::vector<int> tab)
+double LiczbaZ::ObliczDelte(std::vector<int> tab)
 {
 	double delta;
 	if (tab[0] == 0 && tab[1] == 0)
@@ -380,7 +380,7 @@ double LiczbaZ::oblicz_delte(std::vector<int> tab)
 	return delta;
 }
 
-double LiczbaZ::sqrt_Newton(double d, double err)
+double LiczbaZ::SqrtNewton(double d, double err)
 {
 	double a;
 	if (tab[0] == 0 && tab[1] == 0)
@@ -402,7 +402,7 @@ double LiczbaZ::sqrt_Newton(double d, double err)
 	return a;
 }
 
-double LiczbaZ::sqrt_Heron(double d, double err)
+double LiczbaZ::SqrtHeron(double d, double err)
 {
 	double x0 = 1;
 	double x = x0;

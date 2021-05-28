@@ -8,13 +8,13 @@ class LiczbaR :
 public:
 	LiczbaR();
 	~LiczbaR();
-	void wyswietl_rownanie();
-	void oblicz_pierwiastek_rownania();
-	void dodaj_liczby_zespolone();
-	void odejmij_liczby_zespolone();
-	double oblicz_delte(std::vector<int> tab);
-	double sqrt_Newton(double d, double err);
-	double sqrt_Heron(double d, double err);
+	void WyswietlRownanie();
+	void ObliczPierwiastekRownania();
+	void DodajLiczbyZespolone();
+	void OdejmijLiczbyZespolone();
+	double ObliczDelte(std::vector<int> tab);
+	double SqrtNewton(double d, double err);
+	double SqrtHeron(double d, double err);
 
 	void initialize();
 	std::vector<int> getTab();
