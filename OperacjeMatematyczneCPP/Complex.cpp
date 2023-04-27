@@ -1,27 +1,26 @@
-#include "Complex.h"
+#include <iostream>
+#include <cmath>
 
+class Complex {
+public:
+    double re, im;
 
+    Complex(double r = 0, double i = 0) : re(r), im(i) {}
 
-//Complex::Complex()
-//{
-//}
+    Complex operator+(Complex x) {
+        return Complex(re + x.re, im + x.im);
+    }
 
+    Complex operator-(Complex x) {
+        return Complex(re - x.re, im - x.im);
+    }
 
-Complex::~Complex()
-{
-}
+    Complex operator*(Complex x) {
+        return Complex(re * x.re, im * x.im);
+    }
 
-Complex operator+(Complex x, Complex y)
-{
-	return Complex(x.re + y.re, x.im + y.im);
-}
-
-Complex operator-(Complex x, Complex y)
-{
-	return Complex(x.re - y.re, x.im - y.im);
-}
-
-Complex operator*(Complex x, Complex y)
-{
-	return Complex(x.re * y.re, x.im * y.im);
-}
+    friend std::ostream& operator<<(std::ostream& os, const Complex& c) {
+        os << c.re << " + " << c.im << "i";
+        return os;
+    }
+};

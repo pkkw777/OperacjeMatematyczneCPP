@@ -1,16 +1,22 @@
 #pragma once
-class Complex
-{
+
+class Complex {
 public:
-	Complex(double r, double i) { re = r, im = i; }
-	Complex(double r) { re = r, im = 0; }
-	Complex() { re = im = 0; }
-	~Complex();
+    Complex(double r = 0.0, double i = 0.0) : re(r), im(i) {}
+    ~Complex() {}
 
-	friend Complex operator+(Complex x, Complex y);
-	friend Complex operator-(Complex x, Complex y);
-	friend Complex operator*(Complex x, Complex y);
+    Complex operator+(Complex& rhs) {
+        return Complex(re + rhs.re, im + rhs.im);
+    }
+
+    Complex operator-(Complex& rhs) {
+        return Complex(re - rhs.re, im - rhs.im);
+    }
+
+    Complex operator*(Complex& rhs) {
+        return Complex(re * rhs.re - im * rhs.im, re * rhs.im + im * rhs.re);
+    }
+
 private:
-	double re, im;
+    double re, im;
 };
-

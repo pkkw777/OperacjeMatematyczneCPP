@@ -214,21 +214,5 @@ void Wyniki::wyswietl_wynik()
 
 void Wyniki::formatuj_liczbe(double xr, double xu)
 {
-	if (xr < 0 && xu < 0)
-	{
-		printf("(%lf)+(%lf)i\n", xr, xu);
-	}
-	else if (xr < 0)
-	{
-
-		printf("(%lf)+%lfi\n", xr, xu);
-	}
-	else if (xu < 0)
-	{
-		printf("%lf+(%lf)i\n", xr, xu);
-	}
-	else
-	{
-		printf("%lf+%lfi\n", xr, xu);
-	}
+	printf("%lf%s%lfi\n", xr, (xu < 0 ? "" : "+"), xu);
 }
